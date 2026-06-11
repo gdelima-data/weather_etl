@@ -1,0 +1,7 @@
+prefect 
+requests
+supabase 
+python-dotenv 
+pandas 
+pyarrow 
+duckdb

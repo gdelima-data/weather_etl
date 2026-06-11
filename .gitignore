@@ -1,0 +1,5 @@
+# Database
+Data/
+
+# Environment variables
+.env
