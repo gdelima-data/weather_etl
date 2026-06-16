@@ -1,0 +1,32 @@
+name: Weather Pipeline
+
+on:
+  workflow_dispatch:
+
+  schedule:
+    - cron: '0 12 * * *'
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.14.5"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run pipeline
+        run: |
+          python Flows/weather_flow.py
