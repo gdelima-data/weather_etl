@@ -28,5 +28,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run pipeline
+        working-directory: ${{ github.workspace }}
         run: |
           python Flows/weather_flow.py
