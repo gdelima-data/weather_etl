@@ -33,10 +33,17 @@ def extract_weather_data():
 
 @task(retries=3, retry_delay_seconds=10)
 def upload_raw_data(data):
-    supabase = create_client(
-        os.environ['SUPABASE_URL'],
-        os.environ['SUPABASE_KEY']
-    )
+    supabase_url = os.getenv('SUPABASE_URL')
+    supabase_key = os.getenv('SUPABASE_KEY')
+
+    if not supabase_url or not supabase_key:
+        raise ValueError(
+            "Erro: As credenciais 'SUPABASE_URL' ou 'SUPABASE_KEY' "
+            "não foram encontradas ou estão vazias nas variáveis de ambiente."
+        )
+    
+    supabase = create_client(supabase_url, supabase_key)
+
     now = datetime.utcnow()
 
     file_path = (
@@ -82,10 +89,17 @@ def transform_weather_data(data):
 
 @task(retries=3, retry_delay_seconds=10)
 def save_parquet(df):
-    supabase = create_client(
-        os.environ['SUPABASE_URL'],
-        os.environ['SUPABASE_KEY']
-    )
+    supabase_url = os.getenv('SUPABASE_URL')
+    supabase_key = os.getenv('SUPABASE_KEY')
+
+    if not supabase_url or not supabase_key:
+        raise ValueError(
+            "Erro: As credenciais 'SUPABASE_URL' ou 'SUPABASE_KEY' "
+            "não foram encontradas ou estão vazias nas variáveis de ambiente."
+        )
+    
+    supabase = create_client(supabase_url, supabase_key)
+    
     now = datetime.utcnow()
 
     file_path = (
@@ -120,10 +134,16 @@ def save_parquet(df):
 
 @task(retries=3, retry_delay_seconds=10)
 def load_to_duck(path_parquet):
-    supabase = create_client(
-        os.environ['SUPABASE_URL'],
-        os.environ['SUPABASE_KEY']
-    )
+    supabase_url = os.getenv('SUPABASE_URL')
+    supabase_key = os.getenv('SUPABASE_KEY')
+
+    if not supabase_url or not supabase_key:
+        raise ValueError(
+            "Erro: As credenciais 'SUPABASE_URL' ou 'SUPABASE_KEY' "
+            "não foram encontradas ou estão vazias nas variáveis de ambiente."
+        )
+    
+    supabase = create_client(supabase_url, supabase_key)
 
     parquet_bytes = (
         supabase.
