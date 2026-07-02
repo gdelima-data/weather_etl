@@ -13,6 +13,8 @@ jobs:
     env:
       SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
       SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+      PREFECT_API_ENABLE_TELEMETRY: "false"
+      PREFECT_SERVER_ANALYTICS_ENABLED: "false"
 
     steps:
       - name: Checkout repository
