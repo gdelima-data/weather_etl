@@ -35,7 +35,6 @@ def extract_weather_data():
 def upload_raw_data(data):
     supabase_url = os.getenv('SUPABASE_URL')
     supabase_key = os.getenv('SUPABASE_KEY')
-    print(f"SUPABASE_URL: {supabase_url}")
 
     if not supabase_url or not supabase_key:
         raise ValueError(
@@ -46,6 +45,7 @@ def upload_raw_data(data):
     supabase = create_client(supabase_url, supabase_key)
 
     now = datetime.utcnow()
+    print(f"SUPABASE_URL: {supabase_url}")
 
     file_path = (
         f'weather/'
