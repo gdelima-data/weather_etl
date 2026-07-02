@@ -1,3 +1,4 @@
+from urllib.parse import urlparse
 from prefect import flow, task
 from supabase import create_client
 from datetime import datetime
@@ -45,7 +46,12 @@ def upload_raw_data(data):
     supabase = create_client(supabase_url, supabase_key)
 
     now = datetime.utcnow()
-    print(f"SUPABASE_URL: {supabase_url}")
+
+    parsed = urlparse(supabase_url)
+
+    print("Scheme:", parsed.scheme)
+    print("Hostname length:", len(parsed.hostname or ""))
+    print("Hostname endswith supabase.co:", parsed.hostname.endswith("supabase.co"))
 
     file_path = (
         f'weather/'
