@@ -163,6 +163,7 @@ def load_to_duck(path_parquet):
         tmp.write(parquet_bytes)
         tmp.flush()
     
+        os.makedirs(DB_PATH.parent, exist_ok=True)
         conn = duckdb.connect(str(DB_PATH))
 
         conn.execute("""
@@ -186,6 +187,7 @@ def load_to_duck(path_parquet):
 
 @task(retries=3, retry_delay_seconds=10)
 def create_analytics():
+    os.makedirs(DB_PATH.parent, exist_ok=True)
     conn = duckdb.connect(str(DB_PATH))
 
     conn.execute("""
